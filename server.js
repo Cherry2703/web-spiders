@@ -12,14 +12,6 @@ app.use(express.json());
 
 
 
-// XPHQvpkAAYCQUW91     ramcharanamr2408   IP address 183.82.236.39
-
-// const corsOptions = {
-//     origin: 'https://oscowl-todo.vercel.app',  // Correctly set the origin without a trailing slash
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//     credentials: true, // Include credentials like cookies if needed
-//   };
 
 app.use(cors())  /// add corsOptions
 
