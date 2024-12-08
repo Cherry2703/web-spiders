@@ -120,7 +120,7 @@ Response:
 500 Internal Server Error - Error creating todo.
 
 
-# GET /tasks/:todoId/
+# GET /tasks/:taskId/
 Description: Get a specific todo item by ID.
 
 Response:
@@ -130,7 +130,7 @@ Response:
 500 Internal Server Error - Error fetching todo.
 
 
-# PUT /todos/:todoId/
+# PUT /tasks/:taskId/
 Description: Update a specific todo item by ID.
 
 Request Body:
@@ -148,7 +148,7 @@ Response:
 500 Internal Server Error - Error updating todo.
 
 
-# DELETE /todos/:todoId/
+# DELETE /tasks/:taskId/
 Description: Delete a specific todo item by ID.
 
 Response:
