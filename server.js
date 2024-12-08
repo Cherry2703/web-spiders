@@ -297,7 +297,7 @@ app.get('/tasks/:taskId/', middleWare, async (request, response) => {
             return response.status(404).send({ message: "User not found." });
         }
 
-        const getTodo = `SELECT * FROM todos WHERE user_id = '${user.user_id}' AND id = '${todoId}';`;
+        const getTodo = `SELECT * FROM todos WHERE user_id = '${user.user_id}' AND id = '${taskId}';`;
         const data = await db.get(getTodo);
 
         if (!data) {
@@ -314,9 +314,9 @@ app.get('/tasks/:taskId/', middleWare, async (request, response) => {
 
 
 
-app.put('/todos/:todoId/', middleWare, async (request, response) => {
+app.put('/tasks/:taskId/', middleWare, async (request, response) => {
     try {
-        const { todoId } = request.params;
+        const { taskId } = request.params;
         const { username } = request;
         const { title, description, status, priority, is_deleted } = request.body;
 
@@ -327,7 +327,7 @@ app.put('/todos/:todoId/', middleWare, async (request, response) => {
             return response.status(404).send({ message: "User not found." });
         }
 
-        const getTodo = `SELECT * FROM todos WHERE user_id = '${user.user_id}' AND id = '${todoId}';`;
+        const getTodo = `SELECT * FROM todos WHERE user_id = '${user.user_id}' AND id = '${taskId}';`;
         const data = await db.get(getTodo);
 
         const updatedTitle = title === undefined ? data.title : title;
@@ -341,7 +341,7 @@ app.put('/todos/:todoId/', middleWare, async (request, response) => {
             UPDATE todos 
             SET title = '${updatedTitle}', description = '${updatedDescription}', status = '${updatedStatus}', 
                 priority = '${updatedPriority}', is_deleted = ${updatedIsDeleted} 
-            WHERE user_id = '${user.user_id}' AND id = '${todoId}';
+            WHERE user_id = '${user.user_id}' AND id = '${taskId}';
         `;
         await db.run(updateTodo);
 
@@ -354,9 +354,9 @@ app.put('/todos/:todoId/', middleWare, async (request, response) => {
 
 
 
-app.delete('/todos/:todoId/', middleWare, async (request, response) => {
+app.delete('/tasks/:taskId/', middleWare, async (request, response) => {
     try {
-        const { todoId } = request.params;
+        const { taskId } = request.params;
         const { username } = request;
 
         const userQuery = `SELECT * FROM users WHERE username = '${username}';`;
@@ -366,7 +366,7 @@ app.delete('/todos/:todoId/', middleWare, async (request, response) => {
             return response.status(404).send({ message: "User not found." });
         }
 
-        const deleteTask = `DELETE FROM todos WHERE user_id = '${user.user_id}' AND id = '${todoId}';`;
+        const deleteTask = `DELETE FROM todos WHERE user_id = '${user.user_id}' AND id = '${taskId}';`;
         await db.run(deleteTask);
 
         response.status(200).send({ message: 'Todo Deleted Successfully' });
