@@ -569,7 +569,7 @@ app.get('/users/', middleWare, async (request, response) => {
 
 // Function to get all tasks for a user
 const getAllTasksForUser = async (user_id) => {
-    const query = `SELECT * FROM tasks WHERE user_id = '${user_id}';`;
+    const query = `SELECT * FROM todos WHERE user_id = '${user_id}';`;
     return await db.all(query);
 };
 
@@ -597,7 +597,7 @@ app.post('/tasks/', middleWare, async (request, response) => {
             const currentUploadTime = new Date().toLocaleString();
             const task_id = uuidv4(); // Generate unique ID for the task
             const insertTaskQuery = `
-                INSERT INTO tasks (id, user_id, title, description, created_at) 
+                INSERT INTO todos (id, user_id, title, description, created_at) 
                 VALUES ('${task_id}', '${user.user_id}', '${title}', '${description}', '${currentUploadTime}');
             `;
             await db.run(insertTaskQuery);
@@ -626,12 +626,12 @@ app.put('/tasks/:task_id', middleWare, async (request, response) => {
         const user = await db.get(userQuery);
 
         if (user) {
-            const taskQuery = `SELECT * FROM tasks WHERE id = '${task_id}';`;
+            const taskQuery = `SELECT * FROM todos WHERE id = '${task_id}';`;
             const task = await db.get(taskQuery);
 
             if (task && task.user_id === user.user_id) {
                 const updatedTaskQuery = `
-                    UPDATE tasks
+                    UPDATE todos
                     SET title = '${title}', description = '${description}'
                     WHERE id = '${task_id}';
                 `;
@@ -663,11 +663,11 @@ app.delete('/tasks/:task_id', middleWare, async (request, response) => {
         const user = await db.get(userQuery);
 
         if (user) {
-            const taskQuery = `SELECT * FROM tasks WHERE id = '${task_id}';`;
+            const taskQuery = `SELECT * FROM todos WHERE id = '${task_id}';`;
             const task = await db.get(taskQuery);
 
             if (task && task.user_id === user.user_id) {
-                const deleteTaskQuery = `DELETE FROM tasks WHERE id = '${task_id}';`;
+                const deleteTaskQuery = `DELETE FROM todos WHERE id = '${task_id}';`;
                 await db.run(deleteTaskQuery);
 
                 const updatedTasks = await getAllTasksForUser(user.user_id);
