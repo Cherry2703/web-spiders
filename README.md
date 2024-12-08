@@ -96,7 +96,7 @@ Response:
 
 ## 2. Todo Routes
 
-# GET /todos/
+# GET /tasks/
 Description: Get all todos for the authenticated user.
 Response:
 
@@ -105,7 +105,7 @@ Response:
 500 Internal Server Error - Error fetching todos.
 
 
-# POST /todos/
+# POST /tasks/
 Description: Create a new todo item.
 
 Request Body:
@@ -120,7 +120,7 @@ Response:
 500 Internal Server Error - Error creating todo.
 
 
-# GET /todos/:todoId/
+# GET /tasks/:todoId/
 Description: Get a specific todo item by ID.
 
 Response:
